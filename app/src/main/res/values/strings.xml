@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">PhoneDirectory</string>
+    <string name="app_name" translatable="false">PhoneDirectory</string>
+    <string name="name">Name</string>
+    <string name="number">Number</string>
 </resources>
