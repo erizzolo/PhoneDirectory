@@ -32,6 +32,15 @@ public class Directory implements Serializable {
     public static Directory load(InputStream inputStream) {
         // return a Directory saved to the given stream with method save
         // or a new empty Directory
+        Directory result = new Directory();
+        try {
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            result = (Directory) objectInputStream.readObject();
+            objectInputStream.close();
+            inputStream.close();
+        } catch (IOException | ClassNotFoundException e) {
+        }
+        return result;
     }
 
     public Entry searchByName(String name) {
@@ -50,6 +59,15 @@ public class Directory implements Serializable {
         //      return it
         // else
         //      return an entry with the given number and a null name
+        Entry search = new Entry(null, number);
+        Entry result = null;
+        for (int i = 0; i < entries.length && result == null; i++) {
+            if (search.equalsByNumber(entries[i])) {
+                result = entries[i];
+            }
+        }
+        return result == null ? search : result;
+
     }
 
     public void add(Entry e) {
